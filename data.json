@@ -1,0 +1,54 @@
+{
+  "State": "string",
+  "data": {
+    "entityType": "string",
+    "entityState": "string",
+    "activityType": "string",
+    "company": {
+      "name": "string",
+      "designator": "string",
+      "address": {
+        "street": "string",
+        "extra": "string",
+        "city": "string",
+        "state": "string",
+        "zipCode": "string"
+      }
+    },
+    "contact": {
+      "firstName": "string",
+      "lastName": "string",
+      "email": "string",
+      "mobile": "string"
+    },
+    "members": [
+      {
+        "isIndividual": "boolean",
+        "firstName": "string",
+        "lastName": "string",
+        "companyName": "string",
+        "percentOfOwnership": "integer",
+        "address": {
+          "street": "string",
+          "extra": "string",
+          "city": "string",
+          "state": "string",
+          "zipCode": "string"
+        }
+      }
+    ],
+    "agent": {
+      "isIndividual": "boolean",
+      "firstName": "string",
+      "lastName": "string",
+      "companyName": "string",
+      "address": {
+        "street": "string",
+        "extra": "string",
+        "city": "string",
+        "state": "string",
+        "zipCode": "string"
+      }
+    }
+  }
+}
