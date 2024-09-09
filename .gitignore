@@ -1,0 +1,6 @@
+__pycache__
+/venv
+/scripts/__pycache__
+/scripts/.pytest_cache
+downloaded_files
+/scripts/latest_logs
