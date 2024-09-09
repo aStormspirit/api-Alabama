@@ -1,4 +1,5 @@
 __pycache__
+venv
 /venv
 /scripts/__pycache__
 /scripts/.pytest_cache
