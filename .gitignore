@@ -1,9 +1,10 @@
 __pycache__
+/__pycache__
 venv
 /venv
 /scripts/__pycache__
 /scripts/.pytest_cache
 downloaded_files
 /scripts/latest_logs
-/__pycache__
 .gitignore
+/.gitignore
