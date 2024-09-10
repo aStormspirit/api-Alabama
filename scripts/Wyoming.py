@@ -1,6 +1,4 @@
-from selenium import webdriver
 from seleniumbase import BaseCase
-import time
 
 class Wyoming(BaseCase):
     # Вынесем данные в отдельный словарь для удобства
