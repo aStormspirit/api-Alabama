@@ -40,4 +40,4 @@ class NewYork(BaseCase):
 
 
 if __name__ == "__main__":
-    BaseCase.main(__name__, __file__, '--headed', '--proxy=user210318:u9bkcx@181.215.152.137:8403')
+    BaseCase.main(__name__, __file__, '--headed', '')

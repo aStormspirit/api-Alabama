@@ -8,3 +8,4 @@ downloaded_files
 /scripts/latest_logs
 .gitignore
 /.gitignore
+.env
