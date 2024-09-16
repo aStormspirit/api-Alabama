@@ -46,15 +46,6 @@ class Michigan(BaseCase):
         self.click("#MainContent_ButtonsControlMI1_btnSubmitExternal")
 
 
-# configure the proxy
-proxy_username = "DMvhRc"
-proxy_password = "8D887r"
-proxy_address = "45.145.57.229"
-proxy_port = "12535"
-
-# formulate the proxy url with authentication
-proxy_url = f"http://{proxy_username}:{proxy_password}@{proxy_address}:{proxy_port}"
-
 if __name__ == "__main__":
-    BaseCase.main(__name__, __file__, '--headed', f'--proxy={proxy_url}')
+    BaseCase.main(__name__, __file__, '--headed', '--proxy=3YzCMjAi:ssmMvSew@142.111.253.116:64349')
 
