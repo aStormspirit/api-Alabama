@@ -1,8 +1,11 @@
 from fastapi import FastAPI, HTTPException, Depends, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.middleware.cors import CORSMiddleware
-from model import RootModel
+from model import RootModel, StateEnum
 from config import API_TOKEN
+import subprocess
+import os
+
 
 app = FastAPI()
 
@@ -27,7 +30,16 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Security(security))
         raise HTTPException(status_code=401, detail="Неверный токен аутентификации")
     return credentials.credentials
 
+def start_script(state: StateEnum):
+        # Запуск скрипта Alabama
+    script_path = os.path.join('scripts', f'{state.value}.py')
+    try:
+        subprocess.run(['python', script_path], check=True)
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка при выполнении скрипта: {str(e)}")
+
 @app.post("/api/data")
 async def validate_data(data: RootModel, token: str = Depends(verify_token)):
+    start_script(data.state)
     return {"success": True, "data": data, "error": None}
 

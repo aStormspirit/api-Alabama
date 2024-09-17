@@ -9,3 +9,7 @@ downloaded_files
 .gitignore
 /.gitignore
 .env
+/latest_logs
+/archived_logs
+.pytest_cache
+*.zip
