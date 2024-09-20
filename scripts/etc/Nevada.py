@@ -11,6 +11,11 @@ class Nevada(BaseCase):
         'zip': '82001',
     }
 
+    LOGIN = {
+        "email": "ddgkevinedwards435@gmail.com",
+        "password": "Graftio234!Graftio234"
+    }
+
     def test(self):
         self.login()
 

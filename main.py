@@ -30,6 +30,16 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Security(security))
         raise HTTPException(status_code=401, detail="Неверный токен аутентификации")
     return credentials.credentials
 
+@app.post("/api/run_docker")
+async def run_docker(token: str = Depends(verify_token)):
+    try:
+        # Запуск Docker контейнера
+        subprocess.run(['docker', 'run', '-d', 'kansas-script'], check=True)
+        return {"success": True, "message": "Docker контейнер успешно запущен"}
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка при запуске Docker контейнера: {str(e)}")
+
+
 def start_script(state: StateEnum):
         # Запуск скрипта Alabama
     script_path = os.path.join('scripts', f'{state.value}.py')

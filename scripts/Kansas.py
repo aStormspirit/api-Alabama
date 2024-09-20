@@ -1,4 +1,5 @@
 from seleniumbase import BaseCase
+from selenium import webdriver
 
 class Kansas(BaseCase):
     USER_DATA = {
@@ -21,8 +22,15 @@ class Kansas(BaseCase):
         self.login()
         self.page1()
 
+   
+
     def setUp(self):
         super().setUp()
+        # Создаем пользовательский драйвер с прокси
+        # self.driver = self.get_new_driver(
+        #     browser="chrome",
+        #     proxy="user210318:u9bkcx@181.215.152.137:8403",
+        # )
         self.open("https://www.sos.ks.gov/eforms/user_login.aspx?frm=BS")
 
     def login(self):
@@ -59,4 +67,4 @@ class Kansas(BaseCase):
 
 
 if __name__ == "__main__":
-    BaseCase.main(__name__, __file__, '--headed', '--proxy=user210318:u9bkcx@181.215.152.137:8403')
+    BaseCase.main(__name__, __file__)

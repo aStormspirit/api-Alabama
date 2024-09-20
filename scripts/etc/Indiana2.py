@@ -1,6 +1,6 @@
 from selenium import webdriver
 import time
-from extension import proxies
+from scripts.etc.extension import proxies
 import undetected_chromedriver as uc
 
 
