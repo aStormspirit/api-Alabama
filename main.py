@@ -1,11 +1,10 @@
 from fastapi import FastAPI, HTTPException, Depends, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.middleware.cors import CORSMiddleware
-from model import RootModel, StateEnum
+from model import RootModel
 from config import API_TOKEN
-import subprocess
-import os
-
+from utils import run_and_wait_for_container
+from celery.result import AsyncResult
 
 app = FastAPI()
 
@@ -30,26 +29,28 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Security(security))
         raise HTTPException(status_code=401, detail="Неверный токен аутентификации")
     return credentials.credentials
 
-@app.post("/api/run_docker")
-async def run_docker(token: str = Depends(verify_token)):
-    try:
-        # Запуск Docker контейнера
-        subprocess.run(['docker', 'run', '-d', 'kansas-script'], check=True)
-        return {"success": True, "message": "Docker контейнер успешно запущен"}
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Ошибка при запуске Docker контейнера: {str(e)}")
 
-
-def start_script(state: StateEnum):
-        # Запуск скрипта Alabama
-    script_path = os.path.join('scripts', f'{state.value}.py')
-    try:
-        subprocess.run(['python', script_path], check=True)
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"Ошибка при выполнении скрипта: {str(e)}")
+# def process_data(data: RootModel):вщс
+#     result = run_and_wait_for_container("kansas")
+#     if "1 passed" in result:
+#         return {"success": True, "data": data, "error": None}
+#     else:
+#         return {"success": False, "data": data, "error": "Test failed"}
 
 @app.post("/api/data")
 async def validate_data(data: RootModel, token: str = Depends(verify_token)):
-    start_script(data.state)
-    return {"success": True, "data": data, "error": None}
+    task = run_and_wait_for_container.delay("kansas")
+    return {"message": "Задача создана и выполняется в фоновом режиме", "task_id": task.id}
+
+@app.get("/api/result/{task_id}")
+async def get_result(task_id: str, token: str = Depends(verify_token)):
+    task_result = AsyncResult(task_id)
+    if task_result.ready():
+        result = task_result.get()
+        if "1 passed" in result[0]:
+            return {"status": "COMPLETED", "result": {"success": True, "error": None}}
+        else:
+            return {"status": "COMPLETED", "result": {"success": False, "error": "Test failed"}}
+    else:
+        return {"status": "PENDING", "result": None}
 
