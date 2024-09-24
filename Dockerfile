@@ -6,8 +6,8 @@ RUN apt-get update
 RUN apt-get install -y chromium
 
 COPY dreq.txt .
-COPY scripts/Kansas.py .
+COPY scripts/test.py .
 
 RUN pip install -r dreq.txt
 
-CMD python3 Kansas.py
+CMD python3 test.py

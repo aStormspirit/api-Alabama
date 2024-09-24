@@ -2,10 +2,10 @@ from pydantic import BaseModel
 from enum import Enum
 from typing import List, Optional
 
-class StateEnum(Enum):
-    NV = 'Nevada'
-    KS = 'Kansas'
-    WY = 'Wyoming'
+class StateEnum(str, Enum):
+    Nevada = 'NV'
+    Kansas = 'KS'
+    Wyoming = 'WY'
 
 class Address(BaseModel):
     street: str
@@ -49,6 +49,13 @@ class Data(BaseModel):
     members: List[Member]
     agent: Agent
 
+class Credentials(BaseModel):
+    login: str
+    password: str
+
 class RootModel(BaseModel):
+    credentials: Credentials
     state: StateEnum
     data: Data
+    class Config:
+        use_enum_values = True
