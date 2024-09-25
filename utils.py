@@ -3,10 +3,10 @@ import subprocess
 
 
 @app.task(bind=True)
-def run_docker_container(self, image_name):
+def run_docker_container(self, image_name, data_id):
     
     try:
-        result = subprocess.run(['./container.sh', image_name], capture_output=True, text=True, check=True)
+        result = subprocess.run(['./container.sh', image_name, data_id], capture_output=True, text=True, check=True)
         return {
             "stdout": result.stdout,
             "stderr": result.stderr,

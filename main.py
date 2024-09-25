@@ -47,7 +47,7 @@ def create_json_file(data: RootModel):
 @app.post("/api/data")
 async def validate_data(data: RootModel, token: str = Depends(verify_token)):    
     id_name = create_json_file(data)
-    task = run_docker_container.delay("test")
+    task = run_docker_container.delay("test", id_name)
     return {"message": "Задача создана и выполняется в фоновом режиме", "task_id": task.id}
 
 @app.get("/api/result/{task_id}")
@@ -55,8 +55,7 @@ async def get_result(task_id: str, token: str = Depends(verify_token)):
     task_result = AsyncResult(task_id)
     if task_result.ready():
         result = task_result.get()
-        print(result)
-        if "1 passed" in result:
+        if "1 passed" in result['stdout']:
             return {"status": "COMPLETED", "result": {"success": True, "error": None}}
         else:
             return {"status": "COMPLETED", "result": {"success": False, "error": "Test failed"}}

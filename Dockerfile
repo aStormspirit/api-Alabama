@@ -10,4 +10,6 @@ COPY scripts/test.py .
 
 RUN pip install -r dreq.txt
 
+RUN python3 test.py
+
 CMD python3 test.py

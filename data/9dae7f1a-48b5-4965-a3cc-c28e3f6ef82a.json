@@ -1,0 +1,58 @@
+{
+    "credentials": {
+        "login": "string",
+        "password": "string"
+    },
+    "state": "NV",
+    "data": {
+        "entityType": "string",
+        "entityState": "string",
+        "activityType": "string",
+        "company": {
+            "name": "string",
+            "designator": "string",
+            "address": {
+                "street": "string",
+                "extra": "string",
+                "city": "string",
+                "state": "string",
+                "zipCode": "string"
+            }
+        },
+        "contact": {
+            "firstName": "string",
+            "lastName": "string",
+            "email": "string",
+            "mobile": "string"
+        },
+        "members": [
+            {
+                "isIndividual": true,
+                "firstName": "string",
+                "lastName": "string",
+                "companyName": "string",
+                "percentOfOwnership": 0,
+                "address": {
+                    "street": "string",
+                    "extra": "string",
+                    "city": "string",
+                    "state": "string",
+                    "zipCode": "string"
+                }
+            }
+        ],
+        "agent": {
+            "isIndividual": true,
+            "firstName": "string",
+            "lastName": "string",
+            "companyName": "string",
+            "address": {
+                "street": "string",
+                "extra": "string",
+                "city": "string",
+                "state": "string",
+                "zipCode": "string"
+            }
+        }
+    }
+}

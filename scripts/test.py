@@ -1,9 +1,10 @@
 from seleniumbase import BaseCase
 import json
+import os
 
 class Kansas(BaseCase):
     def read_user_data(self):
-        with open('./data/data.json', 'r') as file:
+        with open(f'./data/{os.environ.get("DATA_ID")}.json', 'r') as file:
             return json.load(file)
 
     def set_user_data(self):
