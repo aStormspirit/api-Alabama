@@ -3,7 +3,7 @@
         "login": "string",
         "password": "string"
     },
-    "state": "NV",
+    "state": "KS",
     "data": {
         "entityType": "string",
         "entityState": "string",

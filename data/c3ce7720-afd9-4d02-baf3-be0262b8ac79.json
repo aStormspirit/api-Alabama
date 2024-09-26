@@ -1,15 +1,15 @@
 {
     "credentials": {
-        "login": "string",
-        "password": "string"
+        "login": "ddgkevinedwards435@gmail.com",
+        "password": "Graftio234!Graftio234"
     },
-    "state": "NV",
+    "state": "KS",
     "data": {
         "entityType": "string",
         "entityState": "string",
         "activityType": "string",
         "company": {
-            "name": "string",
+            "name": "The Instruction LLC",
             "designator": "string",
             "address": {
                 "street": "string",

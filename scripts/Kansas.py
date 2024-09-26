@@ -1,10 +1,10 @@
 from seleniumbase import BaseCase
 import json
-from model import RootModel
+import os
 
 class Kansas(BaseCase):
-    def read_user_data(self) -> RootModel:
-        with open('./data.json', 'r') as file:
+    def read_user_data(self):
+        with open(f'./data/{os.environ.get("DATA_ID")}.json', 'r') as file:
             return json.load(file)
 
     def set_user_data(self):
@@ -64,4 +64,4 @@ class Kansas(BaseCase):
 
 
 if __name__ == "__main__":
-    BaseCase.main(__name__, __file__, '--headed', '--proxy=user210318:u9bkcx@181.215.152.137:8403')
+    BaseCase.main(__name__, __file__)
