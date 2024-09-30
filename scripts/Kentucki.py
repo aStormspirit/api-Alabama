@@ -1,18 +1,27 @@
 from seleniumbase import BaseCase
+import json
+import os
 
 class Kentucky(BaseCase):
-    USER_DATA = {
-        'name': 'The instruction',
-        'firstName': 'John',
-        'lastName': 'Doe',
-        'address': '123 Main St',
-        'city': 'Frankfort',
-        'state': 'KY',
-        'zip': '40601',
-        'email': 'test@test.com',
-    }
+    def read_user_data(self):
+        with open(f'./data/{os.environ.get("DATA_ID")}.json', 'r') as file:
+            return json.load(file)
+
+    def set_user_data(self):
+        data = self.read_user_data()
+        self.log = data['credentials']['login']
+        self.password = data['credentials']['password']
+        self.name = data['data']['company']['name']
+        self.firstName = data['data']['contact']['firstName']
+        self.lastName = data['data']['contact']['lastName']
+        self.address = data['data']['company']['address']['street']
+        self.city = data['data']['company']['address']['city']
+        self.state = data['data']['company']['address']['state']
+        self.zip = data['data']['company']['address']['zipCode']
+        self.email = data['data']['contact']['email']
 
     def test(self):
+        self.set_user_data()
         self.page1()
 
     def setUp(self):
@@ -24,25 +33,25 @@ class Kentucky(BaseCase):
         self.sleep(5)
         self.click('#ctl00_MainContent_LLClink')
         self.sleep(5)
-        self.type("#ctl00_MainContent_TName", self.USER_DATA['name'])
-        self.type("#ctl00_MainContent_email", self.USER_DATA['email'])
+        self.type("#ctl00_MainContent_TName", self.name)
+        self.type("#ctl00_MainContent_email", self.email)
         self.click("#ctl00_MainContent_managermanaged")
         self.sleep(5)
-        self.type("#ctl00_MainContent_POAddr1", self.USER_DATA['address'])
-        self.type("#ctl00_MainContent_POCity", self.USER_DATA['city'])
-        self.type("#ctl00_MainContent_POState", self.USER_DATA['state'])
-        self.type("#ctl00_MainContent_POZip", self.USER_DATA['zip'])
-        self.type("#ctl00_MainContent_txtOrgName", self.USER_DATA['firstName'] + " " + self.USER_DATA['lastName'])
+        self.type("#ctl00_MainContent_POAddr1", self.address)
+        self.type("#ctl00_MainContent_POCity", self.city)
+        self.type("#ctl00_MainContent_POState", self.state)
+        self.type("#ctl00_MainContent_POZip", self.zip)
+        self.type("#ctl00_MainContent_txtOrgName", self.firstName + " " + self.lastName)
         self.click("#ctl00_MainContent_btnAdd")
         self.click("#ctl00_MainContent_rbIndividual")
         self.sleep(5)
-        self.type("#ctl00_MainContent_RAFName", self.USER_DATA['firstName'])
-        self.type("#ctl00_MainContent_RALName", self.USER_DATA['lastName'])
-        self.type("#ctl00_MainContent_RAAddr1", self.USER_DATA['address'])
-        self.type("#ctl00_MainContent_RACity", self.USER_DATA['city'])
-        self.type("#ctl00_MainContent_RAZip", self.USER_DATA['zip'])
-        self.type("#ctl00_MainContent_RAsignFname", self.USER_DATA['firstName'])
-        self.type("#ctl00_MainContent_RAsignLname", self.USER_DATA['lastName'])
+        self.type("#ctl00_MainContent_RAFName", self.firstName)
+        self.type("#ctl00_MainContent_RALName", self.lastName)
+        self.type("#ctl00_MainContent_RAAddr1", self.address)
+        self.type("#ctl00_MainContent_RACity", self.city)
+        self.type("#ctl00_MainContent_RAZip", self.zip)
+        self.type("#ctl00_MainContent_RAsignFname", self.firstName)
+        self.type("#ctl00_MainContent_RAsignLname", self.lastName)
         self.click("#ctl00_MainContent_CbStandard")
         self.click("#ctl00_MainContent_bFile")
         self.sleep(5)
