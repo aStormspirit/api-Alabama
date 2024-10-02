@@ -47,5 +47,5 @@ class Michigan(BaseCase):
 
 
 if __name__ == "__main__":
-    BaseCase.main(__name__, __file__, '--headed', '')
+    BaseCase.main(__name__, __file__, '--headed')
 
