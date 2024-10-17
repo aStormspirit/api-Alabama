@@ -124,7 +124,10 @@ class NorthCalifornia(BaseCase):
 
     def page15(self):
         self.sleep(2)
-        self.click('/html/body/div[3]/main/article/section/form/div[30]/div/button', by='xpath')  
+        self.click('/html/body/div[3]/main/article/section/form/div[30]/div/button', by='xpath')
+        self.sleep(20)
+        self.click('/html/body/div[3]/main/article/section/form/div[30]/div/button', by='xpath')
+
 
 
 if __name__ == "__main__":

@@ -12,6 +12,7 @@ class Arkansas(BaseCase):
         'phone': '8632792045'
     }
 
+#104 Garden Rd, River Ridge, LA 70123, США
 
     LOGIN = {
         "email": "ddgkevinedwards435@gmail.com",
