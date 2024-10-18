@@ -20,6 +20,7 @@ class Wyoming(BaseCase):
         self.zip = data['data']['company']['address']['zipCode']
         self.email = data['data']['contact']['email']
         self.phone = data['data']['contact']['phone']
+        
     def setUp(self):
         super().setUp()
         self.open("https://wyobiz.wyo.gov/Business/RegistrationType.aspx")

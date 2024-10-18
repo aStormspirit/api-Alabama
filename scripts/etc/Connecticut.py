@@ -1,6 +1,6 @@
 from seleniumbase import BaseCase
 
-class Georgia(BaseCase):
+class Connecticut(BaseCase):
     # при выполнение 3 запросов в минуту просиходит проверка
     USER_DATA = {
         'name': 'The instruction LLC',

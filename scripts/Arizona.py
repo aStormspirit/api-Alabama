@@ -1,6 +1,6 @@
 from seleniumbase import BaseCase
 
-class Ohio(BaseCase):
+class Arizona(BaseCase):
     USER_DATA = {
         'name': 'The instruction LLC',
         'firstName': 'John',

@@ -1,6 +1,6 @@
 from seleniumbase import BaseCase
 
-class Nevada(BaseCase):
+class Idaho(BaseCase):
     USER_DATA = {
         'name': 'The instruction LLC',
         'firstName': 'John',
@@ -105,4 +105,4 @@ class Nevada(BaseCase):
 
 
 if __name__ == "__main__":
-    BaseCase.main(__name__, __file__, '--headed', '--proxy=user210318:u9bkcx@181.215.152.137:8403')
+    BaseCase.main(__name__, __file__, '--headed', '--proxy=user210318:u9bkcx@166.0.176.151:6493')
