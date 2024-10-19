@@ -1,58 +1,58 @@
 {
-    "credentials": {
-        "login": "ddgkevinedwards435@gmail.com",
-        "password": "Graftio234!Graftio234"
+  "credentials": {
+    "login": "ddgkevinedwards435@gmail.com",
+    "password": "Graftio234!Graftio234"
+  },
+  "state": "KS",
+  "data": {
+    "entityType": "string",
+    "entityState": "string",
+    "activityType": "string",
+    "company": {
+      "name": "The Instruction LLC",
+      "designator": "string",
+      "address": {
+        "street": "string",
+        "extra": "string",
+        "city": "string",
+        "state": "string",
+        "zipCode": "string"
+      }
     },
-    "state": "KS",
-    "data": {
-        "entityType": "string",
-        "entityState": "string",
-        "activityType": "string",
-        "company": {
-            "name": "The Instruction LLC",
-            "designator": "string",
-            "address": {
-                "street": "string",
-                "extra": "string",
-                "city": "string",
-                "state": "string",
-                "zipCode": "string"
-            }
-        },
-        "contact": {
-            "firstName": "string",
-            "lastName": "string",
-            "email": "string",
-            "mobile": "string"
-        },
-        "members": [
-            {
-                "isIndividual": true,
-                "firstName": "string",
-                "lastName": "string",
-                "companyName": "string",
-                "percentOfOwnership": 0,
-                "address": {
-                    "street": "string",
-                    "extra": "string",
-                    "city": "string",
-                    "state": "string",
-                    "zipCode": "string"
-                }
-            }
-        ],
-        "agent": {
-            "isIndividual": true,
-            "firstName": "string",
-            "lastName": "string",
-            "companyName": "string",
-            "address": {
-                "street": "string",
-                "extra": "string",
-                "city": "string",
-                "state": "string",
-                "zipCode": "string"
-            }
+    "contact": {
+      "firstName": "string",
+      "lastName": "string",
+      "email": "string",
+      "mobile": "string"
+    },
+    "members": [
+      {
+        "isIndividual": true,
+        "firstName": "string",
+        "lastName": "string",
+        "companyName": "string",
+        "percentOfOwnership": 0,
+        "address": {
+          "street": "string",
+          "extra": "string",
+          "city": "string",
+          "state": "string",
+          "zipCode": "string"
         }
+      }
+    ],
+    "agent": {
+      "isIndividual": true,
+      "firstName": "string",
+      "lastName": "string",
+      "companyName": "string",
+      "address": {
+        "street": "string",
+        "extra": "string",
+        "city": "string",
+        "state": "string",
+        "zipCode": "string"
+      }
     }
+  }
 }
