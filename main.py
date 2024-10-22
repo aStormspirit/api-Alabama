@@ -32,6 +32,8 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Security(security))
         raise HTTPException(status_code=401, detail="Неверный токен аутентификации")
     return credentials.credentials
 
+
+
 def create_json_file(data: RootModel):
     # Генерируем уникальный идентификатор для имени файла
     id_name = str(uuid.uuid4())
@@ -53,9 +55,13 @@ async def validate_data(data: RootModel, token: str = Depends(verify_token)):
 @app.get("/api/result/{task_id}")
 async def get_result(task_id: str, token: str = Depends(verify_token)):
     task_result = AsyncResult(task_id)
+
+        # Проверяем, существует ли задача
+    if not task_result.id or not task_result.result:
+        raise HTTPException(status_code=404, detail="Задача не найдена")
+    
     if task_result.ready():
         result = task_result.get()
-        print(result)
         if "1 passed" in result['stdout']:
             return {"status": "COMPLETED", "result": {"success": True, "error": None}}
         else:

@@ -1,132 +1,91 @@
-import undetected_chromedriver as uc
-import time
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from seleniumbase import BaseCase
+import json
+import os
 
-#2152 166th St, Torrance, CA 90504
+class Florida(BaseCase):
+    def read_user_data(self):
+        with open(f'../data/bcd623ef-8e5e-483b-85a6-960ba060c6b6.json', 'r') as file:
+            return json.load(file)
 
-class California:
-    def __init__(self):
-        self.url = 'https://bizfileonline.sos.ca.gov/forms/business'
-        self.driver = uc.Chrome()
+    def test(self):
+        self.page1()
+        self.page2()
+        self.page3()
+        self.page4()
+        self.page5()
 
-    def open_page(self):
-        self.driver.get(self.url)
-        time.sleep(20)
-
-    def login(self):
-        self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div[1]/div/main/div[2]/div[1]/div[2]/div[1]/div/h3/span').click()
-        self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div[1]/div/main/div[2]/div[1]/div[2]/div[1]/div[1]/div[2]/button').click()
-        time.sleep(10)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/main/div[2]/div/div/div[2]/form/div[1]/div[3]/div[1]/div[2]/span/input').send_keys('ddgkevinedwards435@gmail.com')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/main/div[2]/div/div/div[2]/form/div[1]/div[3]/div[2]/div[2]/span/input').send_keys('Graftio234!')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/main/div[2]/div/div/div[2]/form/div[2]/input').click()
+    def setUp(self):
+        super().setUp()
+        self.open("https://dos.fl.gov/sunbiz/start-business/efile/")
+        self.data = self.read_user_data()
 
     def page1(self):
-        time.sleep(20)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/label[1]').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button').click()
+        self.click('/html/body/div[3]/div/div[1]/div/ul/li[1]/div/h2/a', by='xpath')
 
     def page2(self):
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div/div[2]/div/input').send_keys('Kevin')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div/div[3]/div/input').send_keys('ddgkevinedwards435@gmail.com')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div/div[4]/div/input').send_keys('8632792045')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
+        self.click('/html/body/div[3]/div[1]/div[1]/div[1]/p[5]/strong/a', by='xpath')
 
     def page3(self):
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
+        self.click('/html/body/div[1]/div[1]/div[2]/div/div[2]/form/p/input', by='xpath')
+        self.click('/html/body/div[1]/div[1]/div[2]/div/div[2]/form/div/input', by='xpath')
 
     def page4(self):
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/div[1]/fieldset/div/div[2]/label').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/div[2]/div/div[1]/div/input').send_keys('The Instruction LLC')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/div[2]/div/div[2]/div/input').send_keys('The Instruction LLC')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
+        # Filing Information
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[4]/td/table/tbody/tr/td[2]/input[1]', 10)
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[4]/td/table/tbody/tr/td[2]/input[2]', 17)
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[4]/td/table/tbody/tr/td[2]/input[3]', 2024)
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[7]/td/table[1]/tbody/tr/td[2]/input', self.data.get('data').get('company').get('name'))
+
+        #Principal Place of Business
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[9]/td/table/tbody/tr[1]/td[2]/input', self.data.get('data').get('company').get('address').get('street'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[9]/td/table/tbody/tr[3]/td[2]/input[1]', self.data.get('data').get('company').get('address').get('city'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[12]/td/table/tbody/tr[3]/td[2]/input[2]', self.data.get('data').get('company').get('address').get('state'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[9]/td/table/tbody/tr[4]/td[2]/input[1]', self.data.get('data').get('company').get('address').get('zipCode'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[9]/td/table/tbody/tr[4]/td[2]/input[2]', self.data.get('state'))
+
+        #Mailing Address
+        self.click('/html/body/div[1]/div/div[2]/form/table/tbody/tr[11]/td/table/tbody/tr[2]/td/label')
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[12]/td/table/tbody/tr[1]/td[2]/input', self.data.get('data').get('company').get('address').get('street'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[12]/td/table/tbody/tr[3]/td[2]/input[1]', self.data.get('data').get('company').get('address').get('city'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[12]/td/table/tbody/tr[3]/td[2]/input[2]', self.data.get('data').get('company').get('address').get('state'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[12]/td/table/tbody/tr[4]/td[2]/input[1]', self.data.get('data').get('company').get('address').get('zipCode'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[12]/td/table/tbody/tr[4]/td[2]/input[2]', self.data.get('state'))
+        
+        # Name And Address of Registered Agent
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[14]/td/table/tbody/tr[1]/td[2]/input', self.data.get('data').get('agent').get('lastName'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[14]/td/table/tbody/tr[1]/td[3]/input', self.data.get('data').get('agent').get('firstName'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[15]/td/table/tbody/tr[4]/td[2]/input', self.data.get('data').get('agent').get('address').get('street'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[15]/td/table/tbody/tr[6]/td[2]/input', self.data.get('data').get('agent').get('address').get('city'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[15]/td/table/tbody/tr[7]/td[2]/input', self.data.get('data').get('agent').get('address').get('zipCode'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[16]/td/table/tbody/tr[2]/td[2]/input', self.data.get('data').get('agent').get('lastName') + ' ' + self.data.get('data').get('agent').get('firstName'))
+
+        #Correspondence Name And E-mail Address
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[23]/td/table/tbody/tr[1]/td[2]/input', self.data.get('data').get('contact').get('lastName') + ' ' + self.data.get('data').get('contact').get('firstName'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[23]/td/table/tbody/tr[2]/td[2]/input', self.data.get('data').get('contact').get('email'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[23]/td/table/tbody/tr[3]/td[2]/input', self.data.get('data').get('contact').get('email'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[24]/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/input', self.data.get('data').get('contact').get('lastName') + ' ' + self.data.get('data').get('contact').get('firstName'))
+
+        #Name And Address of Person(s) Authorized to Manage LLC
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[27]/td/table/tbody/tr[2]/td[2]/input', 'AP')
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[27]/td/table/tbody/tr[4]/td[2]/input', self.data.get('data').get('agent').get('lastName'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[27]/td/table/tbody/tr[4]/td[3]/input', self.data.get('data').get('agent').get('firstName'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[28]/td/table/tbody/tr[3]/td[2]/input', self.data.get('data').get('agent').get('address').get('street'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[28]/td/table/tbody/tr[4]/td[2]/input[1]', self.data.get('data').get('agent').get('address').get('city'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[28]/td/table/tbody/tr[4]/td[2]/input[2]', self.data.get('data').get('agent').get('address').get('state'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[28]/td/table/tbody/tr[5]/td[2]/input[1]', self.data.get('data').get('agent').get('address').get('zipCode'))
+        self.type('/html/body/div[1]/div/div[2]/form/table/tbody/tr[28]/td/table/tbody/tr[5]/td[2]/input[1]', self.data.get('state'))
+        self.click('/html/body/div[1]/div/div[2]/form/table/tbody/tr[40]/td/table/tbody/tr/td[1]/input')
 
     def page5(self):
-        time.sleep(5)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/div[1]/div/div/div/div[1]/input').send_keys('2152 166th St')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/div[3]/div[1]/div/div/input').send_keys('LOS ANGELES')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/div[3]/div[3]/div/div/input').send_keys('90504')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/div[3]/div[2]/div/select').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/div/div[3]/div[2]/div/select/option[7]').click()
-        #Mail Address
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[2]/div/div[1]/div/div/div/div[1]/input').send_keys('2152 166th St')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[2]/div/div[4]/div[1]/div/div/input').send_keys('LOS ANGELES')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[2]/div/div[4]/div[3]/div/div/input').send_keys('90504')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[2]/div/div[4]/div[2]/div/select').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[2]/div/div[4]/div[2]/div/select/option[7]').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
-        time.sleep(5)
+        self.click('/html/body/div[1]/div[1]/div[2]/form/table/tbody/tr[21]/td/table/tbody/tr/td/input')
+        try:
+            self.accept_alert(timeout=None)
+        except:
+            pass
+        text = self.get_text('/html/body/div[1]/div[1]/div[2]/form/table/tbody/tr[3]/td/table/tbody/tr/td[2]')
+        print('&',text,'&')
 
-    def page6(self):
-        time.sleep(5)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[2]/fieldset/div/div[1]/label').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[3]/div/div[1]/div/div/input').send_keys("Kevin")
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[3]/div/div[3]/div/div/input').send_keys("Edwards")
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[4]/div/div[1]/div/div/div/div[1]/input').send_keys('2152 166th St')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[4]/div/div[3]/div[1]/div/div/input').send_keys('LOS ANGELES')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[4]/div/div[3]/div[3]/div/div/input').send_keys('90504')
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
-        time.sleep(5)
 
-    def page7(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[2]/fieldset/div/div[1]/label'))
-        ).click()
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[4]/div[2]/fieldset/div/div[1]/label'))
-        ).click()
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]'))
-        ).click()
 
-    def page8(self):
-        time.sleep(5)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
-
-    def page9(self):
-        time.sleep(5)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[2]/fieldset/div/div[1]/label').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[4]/div/div/div[2]/div/button').click()
-        time.sleep(2)
-        self.driver.find_element(By.XPATH, '/html/body/div[3]/div/div[1]/div[2]/div[1]/div[1]/div/input').send_keys('Kevin Edwards')
-        self.driver.find_element(By.XPATH, '/html/body/div[3]/div/div[1]/div[2]/div[1]/div[2]/div/div/div/button[1]').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[3]/div/div[1]/div[2]/div[2]/button').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[3]/div/label[2]').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
-
-    def page10(self):
-        time.sleep(5)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[2]/div[1]/div/label[2]').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/form/div[3]/div[1]/fieldset/div/div[1]/label').click()
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
-
-    def page11(self):
-        time.sleep(5)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div/main/div/div/div[2]/div/div/div/div[2]/div/div[2]/div/button[2]').click()
-
-    def close_browser(self):
-        time.sleep(50)
-        self.driver.quit()
-
-scraper = California()
-
-try:
-    scraper.open_page()
-    scraper.login()
-    scraper.page1()
-    scraper.page2()
-    scraper.page3()
-    scraper.page4()
-    scraper.page5()
-    scraper.page6()
-    scraper.page7()
-    scraper.page8()
-    scraper.page9()
-    scraper.page10()
-    scraper.page11()
-
-finally:
-    scraper.close_browser()
-
+if __name__ == "__main__":
+    BaseCase.main(__name__, __file__, '--headed', '--proxy=user210318:u9bkcx@166.0.176.151:6493')

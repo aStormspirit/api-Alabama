@@ -1,0 +1,58 @@
+{
+    "credentials": {
+        "login": "ddgkevinedwards435@gmail.com",
+        "password": "Graftio234!Graftio234"
+    },
+    "state": "FL",
+    "data": {
+        "entityType": "string",
+        "entityState": "string",
+        "activityType": "string",
+        "company": {
+            "name": "The instruction LLC",
+            "designator": "string",
+            "address": {
+                "street": "123 Main St",
+                "extra": "string",
+                "city": "Kansas City",
+                "state": "Wyoming",
+                "zipCode": "67801"
+            }
+        },
+        "contact": {
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "efefefe@gmail.com",
+            "mobile": "string"
+        },
+        "members": [
+            {
+                "isIndividual": true,
+                "firstName": "Auth",
+                "lastName": "Poul",
+                "companyName": "string",
+                "percentOfOwnership": 0,
+                "address": {
+                    "street": "321 Main st.",
+                    "extra": "string",
+                    "city": "Kansas City",
+                    "state": "Wyoming",
+                    "zipCode": "67801"
+                }
+            }
+        ],
+        "agent": {
+            "isIndividual": true,
+            "firstName": "Jiji",
+            "lastName": "Peters",
+            "companyName": "string",
+            "address": {
+                "street": "2313 Main St",
+                "extra": "string",
+                "city": "Kansas City",
+                "state": "Wyoming",
+                "zipCode": "67801"
+            }
+        }
+    }
+}

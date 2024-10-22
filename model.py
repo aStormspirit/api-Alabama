@@ -6,6 +6,7 @@ class StateEnum(str, Enum):
     Nevada = 'NV'
     Kansas = 'KS'
     Wyoming = 'WY'
+    Florida = 'FL' 
 
 class Address(BaseModel):
     street: str
